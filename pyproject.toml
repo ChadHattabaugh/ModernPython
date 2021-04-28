@@ -11,6 +11,7 @@ click = "^7.1.2"
 requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
+pytest = "^6.2.3"
 
 [tool.poetry.scripts]
 modern-python="modern_python.console:main"
