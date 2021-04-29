@@ -1,11 +1,16 @@
 
 import pytest
 
+
 @pytest.fixture
 def mock_request_get(mocker):
-    mock =  mocker.patch("requests.get")
+    mock = mocker.patch("requests.get")
     mock.return_value.__enter__.return_value.json.return_value = {
-            "title": "Lorem Ipsum"
-            ,"extract":"Lorem Ipsum dolor sit amet"
+        "title": "Lorem Ipsum",
+        "extract": "Lorem Ipsum dolor sit amet",
     }
     return mock
+
+
+def pytest_configure(config):
+    config.addinivalue_line("markers", "e2e: mark as end to end test")

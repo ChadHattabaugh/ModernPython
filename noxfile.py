@@ -1,7 +1,18 @@
 import nox
 
+
 @nox.session(python=["3.8.9", "3.9.4"])
-def tests(session): 
+def tests(session):
     args = session.posargs or ["--cov", "-m", "not e3e"]
     session.run("poetry", "install", external=True)
     session.run("pytest", *args)
+
+
+locations = "src", "tests", "noxfile.py"
+
+
+@nox.session(python=["3.8.9", "3.9.4"])
+def lint(session):
+    args = session.posargs or locations
+    session.install("flake8")
+    session.run("flake8", *args)
