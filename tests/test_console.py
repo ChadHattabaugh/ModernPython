@@ -44,3 +44,8 @@ def test_main_prints_message_on_requests_error(runner, mock_request_get):
 def test_main_uses_specifiied_language(runner, mock_wikipedia_random_page):
     runner.invoke(console.main, ["--language=pl"])
     mock_wikipedia_random_page.assert_called_with(language="pl")
+
+@pytest.mark.e2e
+def test_main_successds_in_production_environment(runner):
+    result = runner.invoke(console.main)
+    assert result.exit_code == 0
