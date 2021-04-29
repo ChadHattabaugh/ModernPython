@@ -4,6 +4,10 @@ import requests
 
 from modern_python import console
 
+def pytest_configure(config):
+    config.addinivalue("markers", "e2e: mark as end to end test")
+
+
 @pytest.fixture
 def runner():
     return click.testing.CliRunner()
