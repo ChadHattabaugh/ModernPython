@@ -3,6 +3,8 @@ import nox
 python_versions = ["3.8.9", "3.9.4"]
 locations = "src", "tests", "noxfile.py"
 
+nox.options.sessions = "lint", "tests"
+
 
 @nox.session(python=python_versions)
 def tests(session):
