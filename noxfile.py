@@ -6,6 +6,7 @@ from typing import Any
 import nox
 from nox.sessions import Session
 
+package = "modern_python"
 python_versions = ["3.8.9", "3.9.4"]
 locations = "src", "tests", "noxfile.py"
 
@@ -52,6 +53,7 @@ def lint(session: Session) -> None:
         "flake8-bandit",
         "flake8-annotations",
         "flake8-docstrings",
+        "darglint",
     )
     session.run("flake8", *args)
 
@@ -95,3 +97,12 @@ def pytype(session: Session) -> None:
     args = session.posargs or ["--disable=import-error", *locations]
     install_with_constraints(session, "pytype")
     session.run("pytype", *args)
+
+
+@nox.session(python=python_versions)
+def xdoctest(session: Session) -> None:
+    """Run examples within the documentation."""
+    args = session.posargs or ["all"]
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(session, "xdoctest")
+    session.run("python", "-m", "xdoctest", package, *args)

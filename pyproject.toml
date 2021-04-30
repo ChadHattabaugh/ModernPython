@@ -29,6 +29,9 @@ mypy = "^0.812"
 pytype = {version = "^2021.4.26", python = "3.8.9"}
 flake8-annotations = "^2.6.2"
 flake8-docstrings = "^1.6.0"
+darglint = "^1.8.0"
+xdoctest = "^0.15.4"
+Sphinx = "^3.5.4"
 
 [tool.poetry.scripts]
 modern-python = "modern_python.console:main"
