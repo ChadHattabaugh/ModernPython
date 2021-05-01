@@ -1,18 +1,19 @@
-name: tests
-on: push
+name: CI
+on:
+  push:
+  workflow_dispatch:
 jobs:
-  tests:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ['3.8', '3.9']
-    name: Python ${{ maritx.python-version }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
-      with:
-        python-version: 3.8.9
-        architecture: x64
-    - run: pip install nox==2019.11.9
-    - run: pip install poetry==1.0.5
-    - run: nox
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+      - run: pip install nox==2019.11.9
+      - run: pip install poetry==1.0.5
+      - run: nox
